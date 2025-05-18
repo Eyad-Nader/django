@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home-BOOKTY.com</title>
+  <link rel="stylesheet" href="gad.css">
+</head>
+
+<body class="body">
+  <!-- Navigation Bar -->
+  <div id="dado_nav">
+    <img src="house.png" class="reg-img" id="dado_home">
+    <img src="cart.png" class="reg-img" id="dado_cart" onclick="window.location.href='gad2.html'">
+    <img src="bar.png" class="reg-img" id="dado_bar" onclick="window.location.href='../Borrowed_Books/borrowpage.html'">
+    <h4>BOOKTY.com</h4>
+    <img src="Group 4.png" id="dado_search">
+  </div>
+
+  <!-- First Section -->
+  <div class="First">
+    <div class="Gad0">
+      <p>Discover Our latest Books</p>
+    </div>
+    
+    <div class="carousel-container">
+     
+    
+      <div class="carousel">
+        <div class="book active">
+          <img src="fan.jpg" alt="Book 1">
+        </div>
+        <div class="book ">
+          <img src="fan1.jpg" alt="Book 2">
+        </div>
+        <div class="book">
+          <img src="fan3.jpg" alt="Book 3">
+        </div>
+        <div class="book">
+          <img src="fan4.jpg" alt="Book 4">
+        </div>
+        <div class="book">
+          <img src="hor1.jpg" alt="Book 4">
+        </div>
+        <div class="book">
+          <img src="hor2.jpg" alt="Book 4">
+        </div>
+        <div class="book">
+          <img src="hor4.jpg" alt="Book 4">
+        </div>
+        
+        
+      </div>
+    
+     
+    </div>
+    <button class="arrow left" onclick="prevBook()">&#8249;</button>
+    <button class="arrow right" onclick="nextBook()">&#8250;</button>
+    
+    
+    
+    
+  </div>
+  </div>
+
+  <!-- Trending Section -->
+  <div class="Trinding">
+    <p id="gg">Trending</p>
+    <div class="trending-box">
+      <img src="rr.jpg" alt="Game of Thrones Book" class="trending-img">
+      <div class="trending-text">
+        <p id="ggg">
+          GAME OF THRONES IS THE FIRST BOOK IN THE A SONG OF ICE AND FIRE SERIES BY GEORGE R.R. MARTIN, SET IN THE BRUTAL AND POLITICALLY CHARGED WORLD OF WESTEROS. THE STORY UNFOLDS ACROSS SEVERAL NOBLE HOUSES, INCLUDING THE STARKS OF THE NORTH, THE LANNISTERS OF THE WEST, AND THE TARGARYENS, WHO SEEK TO RECLAIM THE IRON THRONE. WITH POLITICAL INTRIGUE, COMPLEX CHARACTERS, AND SHIFTING ALLEGIANCES, THE NOVEL EXPLORES THEMES OF POWER, HONOR, BETRAYAL, AND SURVIVAL. AT THE HEART OF THE NARRATIVE IS THE STARK FAMILY, LED BY EDDARD STARK 
+          <span class="learn-more">LEARN MORE</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="Discover-more">
+    <img src="G.png" alt="">
+    <button class="btn" onclick="window.location.href='../dadofinal/html.html'">Discover More</button>
+
+  </div>
+
+  <!-- Scroll Animation Image -->
+  <div class="scroll-footer">
+    <div class="animation" >
+      <img src="Group 22.png" alt="Book 1" class="imgForInformaition" >
+      <p class="textForInformaition">BOOKTY.com</p>
+    </div>
+    <div class="socialmedia-icon">
+      <img src="X.png" alt="X">
+      <img src="insta.png" alt="Instgram">
+      <img src="facebook.png" alt="facebook" class="social-icon">
+      <img src="thread.png" alt="thread">
+
+    </div>
+    <div class="footer-text">
+      <p>© 2023 BOOKTY.com. All rights reserved.</p>
+      <p>Privacy Policy | Terms of Service</p>
+      <p>Designed by Abdallah gamal</p>
+    </div>
+    <div class="footer-text2">
+      <p>BOOKTY.com<br>is a fictional website created for educational purposes.<br> Any resemblance to real websites or entities is purely coincidental.</p>
+
+
+    </div>
+
+  </div>
+
+  <script>
+    const carousel = document.querySelector('.carousel');
+    const books = document.querySelectorAll('.book');
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+      const bookWidth = 230; 
+      const spacing = 20;    
+      const totalBookWidth = bookWidth + spacing;
+    
+      const containerWidth = carousel.parentElement.offsetWidth;
+      const centerPosition = (containerWidth / 2) - (bookWidth / 2);
+    
+
+      let offset = -(currentIndex * totalBookWidth) + centerPosition;
+    
+
+      const maxOffset = 0;
+      const minOffset = -(books.length * totalBookWidth - containerWidth);
+    
+      if (offset > maxOffset) offset = maxOffset;
+      if (offset < minOffset) offset = minOffset;
+    
+      carousel.style.transform = `translateX(${offset}px)`;
+      carousel.style.transition = 'transform 0.5s ease';
+    
+      books.forEach((book, index) => {
+        book.classList.remove('active');
+        if (index === currentIndex) {
+          book.classList.add('active');
+        }
+      });
+    }
+    
+    function moveCarousel(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = 0;
+      if (currentIndex >= books.length) currentIndex = books.length - 1;
+      updateCarousel();
+    }
+    
+    updateCarousel();
+    
+    function prevBook() {
+      moveCarousel(-1);
+    }
+    
+    function nextBook() {
+      moveCarousel(1);
+    }
+    </script>
+    
+    
+
+  
+ 
+</body>
+</html>

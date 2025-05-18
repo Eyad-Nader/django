@@ -1,0 +1,135 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/main-admin.css'%}">
+    <title>BOOKTY.com</title>
+</head>
+
+<body>
+
+
+    <header>
+        <div class="logo">BOOKTY.COM</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="{% url 'starting'%}">Logout</a>
+        </nav>
+    </header>
+
+
+
+    <div class="container">
+
+        <a class="add-button" href="{% url 'add'%}">Add New Book</a>
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+        <!-- الي تحت يتعدل من الداتا بيز -->
+
+            <tbody>
+                <tr date-id="row25">
+                    <td>Sherlock Holmes vs. Arsene Lupin</td>
+                    <td>Maurice Leblanc</td>
+                    <td>Thriller</td>
+                    <td class="actions">
+                        <a href="{% url 'edit'%}" class="btn" onclick="storeId(this)">Edit</a>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                <tr date-id="row1">
+                    <td>Shatter me</td>
+                    <td>Tahereh Mafi</td>
+                    <td>Fantasy</td>
+                    <td class="actions">
+                        <a href="../editbook.html" class="btn" onclick="storeId(this)">Edit</a>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+
+                <tr date-id="row26">
+                    <td>The Great Gatsby</td>
+                    <td>F.Scott Fitzgerald</td>
+                    <td>Drama</td>
+                    <td class="actions">
+                        <a href="../editbook.html" class="btn" onclick="storeId(this)">Edit</a>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+
+
+                <tr date-id="row18">
+                    <td>ELgazar</td>
+                    <td>Hasan ELgendi</td>
+                    <td>Horror</td>
+                    <td class="actions">
+                        <a href="../editbook.html" class="btn" onclick="storeId(this)">Edit</a>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+
+
+                <tr date-id="row15">
+                    <td>The Fine Print</td>
+                    <td>Lauren Asher</td>
+                    <td>Romance</td>
+                    <td class="actions">
+                        <a href="../editbook.html" class="btn" onclick="storeId(this)">Edit</a>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+
+                <tr date-id="row5">
+                    <td>The Housemaid</td>
+                    <td>Freida Mcfadden</td>
+                    <td>Thriller</td>
+                    <td class="actions">
+                        <a href="../editbook.html" class="btn" onclick="storeId(this)">Edit</a>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+
+
+                <tr date-id="row30">
+                    <td>Reminders Of Him</td>
+                    <td>Colleen Hoover</td>
+                    <td>Drama</td>
+                    <td class="actions">
+                        <a href="../editbook.html" class="btn" onclick="storeId(this)">Edit</a>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+
+                <tr date-id="row8">
+                    <td>Powerless</td>
+                    <td>Lauren Roberts</td>
+                    <td>Fantasy</td>
+                    <td class="actions">
+                        <a href="../editbook.html" class="btn" onclick="storeId(this)">Edit</a>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+
+
+        </table>
+
+    </div>
+
+    <script src="{% static 'java/main-admin.js'%}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit-Book</title>
+    <link rel="stylesheet" href="{% static 'css/editbook.css'%}">
+    
+</head>
+
+<body>
+
+    <nav id="logout">
+        <a href="{% url 'mainadmin'%}"> Home </a> 
+        <a href="{% url 'starting'%}"> Logout</a>
+    </nav>
+
+    <div class="container">
+        <div class="es_box1">
+            <h2>Edit Book</h2>
+            <form method="post" action="{% url 'edit' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title">Book Title</label>
+                    <input type="text" id="title" name="title" value="Sherlock Holmes vs. Arsène Lupin" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="author">Author</label>
+                    <input type="text" id="author" name="author" value="Maurice Leblanc" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" id="category" name="category" value="Thriller">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description"
+                        rows="4">The legendary detective Sherlock Holmes faces off against the cunning thief Arsène Lupin. Lupin challenges Holmes by committing high-profile thefts and leaving behind cryptic clues. Holmes, with his sharp intellect, attempts to capture the elusive thief. Their battle of wits leads to a thrilling game of cat and mouse. The novel is a classic clash between two brilliant minds</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="cover">Cover Image URL</label>
+                    <input type="url" id="cover" name="cover" value="C:\Users\user\Desktop\testing\thr5.jpg">
+                </div>
+
+                <div class="form-group">
+                     <button type="submit" id="updateButton">Update Book</button>
+                </div>
+
+            </form>
+        </div>
+        <div class="es_box2">
+            <img src="{% static 'image/editphoto.jpeg'%}" id="es_animi" alt="">
+        </div>
+
+    </div>
+    <script src="{% static 'java/editbook.java'%}"></script>
+</body>
+
+</html>
