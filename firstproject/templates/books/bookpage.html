@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="{% static 'css/bookpage.css'%}">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-    <script src="{% static 'java/bookpage.js'%}"></script>
-</head>
+    <script src="{% static 'java/bookpage2.js'%}"></script>
+</head> 
 <body>
     <div class="container">
-        <div class="top-box">
+        <div class="top-box" style="background-image: url('{{ book.photos.url }}');">
         </div>
         <div class="left-box">
             <h1 class="logo">BOOKTY.com</h1>
@@ -22,26 +22,24 @@
                 <img src="{% static 'image/Bar2.png'%}" alt="User" class="bar"onclick="window.location.href='../Borrowed_Books/borrowpage.html'">
             </div>
 
-            <img src="coverbook.jpg" alt="Book Cover" class="book-cover">
+            <img src="{{ book.photos.url }}" alt="Book Cover" class="book-cover">
         </div>
         <div class="right-box">
             <a class="book-tab book-info" onclick="showTab('info')">INFO</a>
             <a class="book-tab book-simi" onclick="showTab('similar')">RECOMMENDED</a>
             <div class="book-details">
-                <h1 class="book-title">CARVAL</h1>
-                <h1 class="type-book">FANTASY</h1>
+                <h1 class="book-title">{{book.title}}</h1>
+                <h1 class="type-book">{{book.category}}</h1>
            </div>
            <div class="stars" data-rating="4"></div>
             <div id="info-box">
                
-                <div class = "content"> Caraval is a fantasy book series by Stephanie Garber that follows two sisters, Scarlett and Donatella, as they become entangled in a magical, 
-                    high-stakes game. The story begins when Scarlett receives an invitation to Caraval, 
-                    a mysterious performance where the audience participates. As the sisters navigate illusions and secrets, they uncover hidden truths about their past and the game’s  enigmatic master, Legend. The series blends romance, danger,
-                     and wonder in a vividly imaginative world. Each book deepens the mystery, exploring love, sacrifice, and the cost of chasing dreams.
+                <div class = "content"> 
+                    {{book.description}}
                 </div>
             </div>
            
-            <div class = "avalibale">
+            <div class = "avalibale" data-available="{{ book.avaliable|yesno:'true,false' }}">
                 <p id="aval" style="display: inline; margin-right: 2px;">Avalibale</p>
                 <img  src="{% static 'image/right2.png'%}" alt="" style="vertical-align: middle;" id="image">
             </div>
@@ -65,7 +63,7 @@
                 </button>
                 <div class="sliderc">
                 <div class="slider">
-                    <img src="../dadofinal/img2.jpg" class="dado_book" 
+                    <img src="{% static 'image/img2.jpg'%}" class="dado_book" 
                     data-title="It ends with us" 
                     data-av="true" 
                     data-cate="Romance"         
@@ -73,7 +71,7 @@
                     onclick="handleClick(this)">
                 </div>
                 <div class="slider" >
-                    <img src="../dadofinal/fan1.jpg" class="dado_book" 
+                    <img src="{% static 'image/fan1.jpg'%}" class="dado_book" 
                     data-title="A Wave of Fates"  
                     data-av="true" 
                     data-cate="FANTASY" 
@@ -81,7 +79,7 @@
                     onclick="handleClick(this)">
                 </div>
                 <div class="slider">
-                    <img src="../dadofinal/fan4.jpg" class="dado_book" 
+                    <img src="{% static 'image/fan4.jpg'%}" class="dado_book" 
                     data-title="Zekola land"  
                     data-av="true" 
                     data-cate="FANTASY" 
@@ -89,7 +87,7 @@
                     onclick="handleClick(this)">
                 </div>
                 <div class="slider">
-                    <img src="../dadofinal/fan2.jpg" class="dado_book" 
+                    <img src="{% static 'image/fan2.jpg'%}" class="dado_book" 
                     data-title="CARAVAL"  
                     data-av="true" 
                     data-cate="FANTASY" 
@@ -101,7 +99,7 @@
                     onclick="handleClick(this)">
                 </div>
                 <div class="slider">
-                    <img src="../dadofinal/rom5.jpg" class="dado_book" 
+                    <img src="{% static 'image/rom5.jpg'%}" class="dado_book" 
                     data-title="THE FINE PRINT"  
                     data-av="true" 
                     data-cate="ROMANCE" 
@@ -109,7 +107,7 @@
                     onclick="handleClick(this)">
                 </div>
                 <div class="slider">
-                    <img src="../dadofinal/thr5.jpg" class="dado_book" 
+                    <img src="{% static 'image/thr5.jpg'%}" class="dado_book" 
                     data-title="Arsene Lupin" 
                     data-av="true" 
                     data-cate="Thriller" 
@@ -117,7 +115,7 @@
                     onclick="handleClick(this)">
                 </div>
                 <div class="slider">
-                    <img src="../dadofinal/drama2.jpg" class="dado_book" 
+                    <img src="{% static 'image/drama2.jpg'%}" class="dado_book" 
                     data-title="Little Women"  
                     data-av="true" 
                     data-cate="DRAMA" 
@@ -125,7 +123,7 @@
                     onclick="handleClick(this)">
                 </div>
                 <div class="slider">
-                    <img src="../dadofinal/thr2.jpg" class="dado_book" 
+                    <img src="{% static 'image/thr2.jpg'%}" class="dado_book" 
                     data-title="The Girl with the dragon Tattoo"  
                     data-av="false" 
                     data-cate="Thriller" 
@@ -135,7 +133,34 @@
               </div>
               
             </section>
-        
+            <script>
+                function handle_ava(aval55){
+                    const bookAvaliabilityEl = document.getElementById("image");
+                    const bookava = document.getElementById("aval");
+                    
+                    if(aval55){
+                        if (bookAvaliabilityEl) bookAvaliabilityEl.src = "{% static 'image/right2.png' %}";
+                        if (bookava) bookava.textContent = "Available";
+                        document.getElementById("b11").classList.add('active');
+                    }
+                    else{
+                        if (bookAvaliabilityEl) bookAvaliabilityEl.src = "{% static 'image/wrong.png' %}";
+                        if (bookava) bookava.textContent = "Not Available";
+                        document.getElementById("b11").classList.remove('active');
+                    }
+                }
+
+                window.addEventListener('DOMContentLoaded', function() {
+                    const availableDiv = document.querySelector('.avalibale');
+                    const availableStr = availableDiv.getAttribute('data-available');
+                    const available = availableStr === 'true'; // converts string to boolean
+                    handle_ava(available);
+                });
+            </script>
+
+
+
+
       </div>
 </body>
 </html>

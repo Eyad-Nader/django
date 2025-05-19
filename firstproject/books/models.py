@@ -4,10 +4,11 @@ from django.db import models
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
-    cover_image = models.URLField(blank=True, null=True)
     description = models.TextField()
     category = models.CharField(max_length=100)
     avaliable = models.BooleanField(default=True)
-    
+    photos = models.ImageField(upload_to='covers/', default='covers/default.jpg')
+
+
     def __str__(self):
         return self.title

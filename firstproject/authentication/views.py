@@ -1,10 +1,58 @@
 from django.shortcuts import render, redirect
 from .models import Uuser
+
 def show_starting(request):
     return render(request,'authentication/starting.html')
 
 
 def show_login(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = Uuser.objects.get(email=email, password=password)
+            print("User found:", user)
+
+            # Save username and any other info you need
+            request.session['username'] = user.username
+            request.session['user_email'] = user.email
+            request.session['is_admin'] = user.admin
+
+            if user.admin:
+                return redirect('mainadmin') 
+            else:
+                return redirect('books') 
+        except Uuser.DoesNotExist:
+            print("User not found")
+            return render(request, 'authentication/login.html', {
+                'error': 'Email or password is incorrect'
+            })
+
+    return render(request, 'authentication/login.html')
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = Uuser.objects.get(email=email, password=password)
+            print("User found:", user)
+
+            # Save user ID in session
+            request.session['user_id'] = user.id
+            request.session['user_name'] = user.username  # optional, for display
+
+            if user.admin:
+                return redirect('mainadmin') 
+            else:
+                return redirect('books') 
+        except Uuser.DoesNotExist:
+            print("User not found")
+            return render(request, 'authentication/login.html', {
+                'error': 'Email or password is incorrect'
+            })
+
+    return render(request, 'authentication/login.html')
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
