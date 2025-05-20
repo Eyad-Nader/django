@@ -17,7 +17,7 @@
         <div class="left-box">
             <h1 class="logo">BOOKTY.com</h1>
             <div class="icons">
-                <img src="{% static 'image/House_02.png'%}" alt="Book" class="home" onclick="window.location.href='../web_category/gad.html'"> 
+                <img src="{% static 'image/House_02.png'%}" alt="Book" class="home"  onclick="window.location.href='{% url 'books'%}'">
                 <img src="{% static 'image/cart2.png'%}" alt="Book" class="cart" onclick="window.location.href='../web_category/gad2.html'"> 
                 <img src="{% static 'image/Bar2.png'%}" alt="User" class="bar"onclick="window.location.href='../Borrowed_Books/borrowpage.html'">
             </div>
@@ -43,16 +43,18 @@
                 <p id="aval" style="display: inline; margin-right: 2px;">Avalibale</p>
                 <img  src="{% static 'image/right2.png'%}" alt="" style="vertical-align: middle;" id="image">
             </div>
-            
-            <div class="button1" id="button-container">
-                <button class="b1" id="b11" onclick="handleClick2(this)">Borrow Now!</button>
+            <div class="button1" id="button-container" style="{% if book in user.borrowed_books.all %}display: none;{% endif %}">
+                <form method="POST" action="{% url 'borrow_book' book.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="b1" id="b11">Borrow Now!</button>
+                </form>
             </div>
-            
-            <div id="message-container" >
+
+            <div id="message-container" style="{% if book in user.borrowed_books.all %}display: block;{% else %}display: none;{% endif %}">
                 <h1 id="confirmation-message">BOOK ADDED TO YOUR<br>BORROWING CART</h1>
                 <img src="{% static 'image/right.png'%}" alt="" id="image2">
             </div>
-           
+
             
             <section id="similar-box" style="display: none;">
                 <button class="pre-btn" style="font-size: 24px; padding: 10px 20px;">
@@ -63,12 +65,15 @@
                 </button>
                 <div class="sliderc">
                 <div class="slider">
+                    <a href="{% url 'book_detail' 27 %}">
                     <img src="{% static 'image/img2.jpg'%}" class="dado_book" 
                     data-title="It ends with us" 
                     data-av="true" 
                     data-cate="Romance"         
                     data-desc="Lily falls for a charming neurosurgeon, Ryle, but their relationship turns abusive. As she struggles with her past and present, she recalls her first love, Atlas, who once saved her from pain. When Atlas reappears, Lily is forced to make a heartbreaking choice. The novel explores the cycle of abuse, love, and strength. In the end, Lily chooses to break the cycle for her daughter’s future"
-                    onclick="handleClick(this)">
+                    
+                    >
+                    </a>
                 </div>
                 <div class="slider" >
                     <img src="{% static 'image/fan1.jpg'%}" class="dado_book" 
@@ -157,6 +162,7 @@
                     const available = availableStr === 'true'; // converts string to boolean
                     handle_ava(available);
                 });
+                
             </script>
 
 
