@@ -5,14 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Book Page</title>
-    <link rel="stylesheet" href="{% static 'css/bookpage.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bookpage2.css'%}">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
     <script src="{% static 'java/bookpage2.js'%}"></script>
 </head> 
 <body>
     <div class="container">
-        <div class="top-box" style="background-image: url('{{ book.photos.url }}');">
+        <div class="top-box" style="background-image: url('{{book.photos.url}}');">
         </div>
         <div class="left-box">
             <h1 class="logo">BOOKTY.com</h1>
@@ -22,7 +22,7 @@
                 <img src="{% static 'image/Bar2.png'%}" alt="User" class="bar"onclick="window.location.href='../Borrowed_Books/borrowpage.html'">
             </div>
 
-            <img src="{{ book.photos.url }}" alt="Book Cover" class="book-cover">
+            <img src="{{book.photos.url}}" alt="Book Cover" class="book-cover">
         </div>
         <div class="right-box">
             <a class="book-tab book-info" onclick="showTab('info')">INFO</a>
@@ -133,6 +133,7 @@
               </div>
               
             </section>
+            
             <script>
                 function handle_ava(aval55){
                     const bookAvaliabilityEl = document.getElementById("image");

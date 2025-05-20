@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Books by Category</title>
+  <link rel="stylesheet" href="{% static 'css/css.css' %}">
+</head>
+<body>
+
+  <div id="dado_nav">
+    <a href="{% url 'books' %}"><img src="{% static 'image/house.png' %}" class="reg-img" id="dado_home"></a>
+    <a href="#"><img src="{% static 'image/cart.png' %}" class="reg-img" id="dado_cart"></a>
+    <a href="#"><img src="{% static 'image/bar.png' %}" class="reg-img" id="dado_bar"></a>
+    <h4>BOOKTY.com</h4>
+  </div>
+
+  <div class="search-wrapper">
+    <select id="searchType">
+      <option value="all">All</option>
+      <option value="title">By Book Title</option>
+      <option value="author">By Author</option>
+      <option value="category">By Category</option>
+    </select>
+    <div class="search-input">
+      <input type="search" id="dado_search" placeholder="Search Book">
+      <img src="{% static 'image/search.png' %}" alt="Search Icon" class="search-icon">
+    </div>
+  </div>
+  
+  <div id="searchResults" class="dado_toptrend" style="display: none; margin-top: 20px;"></div>
+
+  {% for group in books_by_category %}
+    <hr>
+    <h5>{{ group.category|upper }} BOOKS</h5>
+    <div class="dado_toptrend">
+      {% for book in group.books %}
+       <a href="{% url 'book_detail' book.id %}" style="color:#fff8e8;">   
+        <figure class="fig_hover" data-id="book-{{ forloop.counter }}">
+          <img src="{{book.photos.url}}" class="dado_book" alt="not found"
+               data-author="{{ book.author }}"  
+               data-title="{{ book.title }}"
+               data-av="{{ book.avaliable|yesno:'true,false' }}"
+               data-cate="{{ group.category|upper }}"
+               data-desc="{{ book.description|default:'No description available.' }}"
+               >
+               {%if book.avaliable %}
+                   <figcaption>Available</figcaption>
+                {%else%}
+                   <figcaption>Not Available</figcaption>
+                {%endif%}
+                   
+        </figure>
+      </a>
+        
+      {% endfor %}
+    </div>
+  {% endfor %}
+
+  <script src="{% static 'java/html.js' %}"></script>
+
+</body>
+</html>
