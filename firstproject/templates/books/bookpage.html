@@ -43,7 +43,7 @@
                 <p id="aval" style="display: inline; margin-right: 2px;">Avalibale</p>
                 <img  src="{% static 'image/right2.png'%}" alt="" style="vertical-align: middle;" id="image">
             </div>
-            <div class="button1" id="button-container" style="{% if book in user.borrowed_books.all %}display: none;{% endif %}">
+            <div class="button1" id="button-container" style="{%if book in user.borrowed_books.all %}display:none; {% endif %}">
                 <form method="POST" action="{% url 'borrow_book' book.id %}">
                     {% csrf_token %}
                     <button type="submit" class="b1" id="b11">Borrow Now!</button>
@@ -188,6 +188,6 @@
 
 
 
-      </div>
+      </div
 </body>
 </html>

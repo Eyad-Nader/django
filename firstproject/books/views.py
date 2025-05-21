@@ -13,7 +13,7 @@ def show_books(request):
  ##   book = Book.objects.get(title='Caraval')
   ##  return render(request, 'books/bookpage.html', {'book': book})
 ###
-def show_details(request, bookid):
+def show_details(request,bookid):
     book = Book.objects.get(id=bookid)
     username = request.session.get('username')
     user_email = request.session.get('user_email')

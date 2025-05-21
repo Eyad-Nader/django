@@ -89,23 +89,28 @@
     <h5>{{ group.category|upper }} BOOKS</h5>
     <div class="dado_toptrend">
       {% for book in group.books %}
-       <a href="{% url 'book_detail' book.id %}" style="color:#fff8e8;">   
+       <!-- <a href="{% url 'book_detail' book.id %}"  style="color:#fff8e8;">    -->
         <figure class="fig_hover" data-id="book-{{ forloop.counter }}">
-          <img src="{{book.photos.url}}" class="dado_book" alt="not found"
+          <a href="{% url 'book_detail' book.id %}"  style="color:#fff8e8;">
+
+            <img src="{{book.photos.url}}" class="dado_book" alt="not found"
                data-author="{{ book.author }}"  
                data-title="{{ book.title }}"
                data-av="{{ book.avaliable|yesno:'true,false' }}"
                data-cate="{{ group.category|upper }}"
                data-desc="{{ book.description|default:'No description available.' }}"
+               dataa_id="{{ book.id }}"
                >
                {%if book.avaliable %}
                    <figcaption>Available</figcaption>
                 {%else%}
                    <figcaption>Not Available</figcaption>
                 {%endif%}
+          </a>
+          
                    
         </figure>
-      </a>
+      <!-- </a> -->
         
       {% endfor %}
     </div>

@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const originalBooks = [];
     books.forEach(book => {
-        const figure = book.closest("figure");
-        if (figure) {
-            originalBooks.push(figure.cloneNode(true));
+        const link = book.closest("a");
+        if (link) {
+            originalBooks.push(link.cloneNode(true));
         }
     });
 
@@ -75,8 +75,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             if (match) {
-                matchedBooks.push(book.closest("figure").cloneNode(true));
-                found = true;
+            const link = book.closest("a");
+                if (link) {
+                    const clonedLink = link.cloneNode(true);
+                    matchedBooks.push(clonedLink);
+                    found = true;
+                }
             }
         });
 
@@ -87,8 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
             matchedBooks.forEach(book => {
                 book.style.opacity = 0;
                 searchResults.appendChild(book);
-
-
                 setTimeout(() => {
                     book.style.transition = "opacity 0.5s";
                     book.style.opacity = 1;
