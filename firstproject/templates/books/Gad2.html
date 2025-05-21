@@ -11,7 +11,9 @@
   <!-- Navigation Bar -->
   <div id="dado_nav">
     <img src="{% static 'image/house.png' %}" class="reg-img" id="dado_home" onclick="window.location.href='{% url 'books' %}'">
-    <a href="#"><img src="{% static 'image/cart.png' %}" class="reg-img" id="dado_cart"></a>
+    <a href="{% url 'gad-page'%}"><img src="{% static 'image/cart.png' %}" class="reg-img" id="dado_cart"></a>
+    <a href="{% url 'borrowlist'%}"><img src="{% static 'image/bar.png' %}" class="reg-img" id="dado_bar" style="margin-top:10px"></a>
+
     <h4>BOOKTY.com</h4>
     <input type="search" id="es_search" placeholder="Search book">
   </div>

@@ -11,8 +11,8 @@
 
   <div id="es_nav">
     <a href="{% url 'books' %}"><img src="{% static 'image/house.png' %}" class="reg-img" id="es_home"></a>
-    <a href="#"><img src="{% static 'image/cart.png' %}" class="reg-img" id="es_cart"></a>
-    <a href="#"><img src="{% static 'image/bar.png' %}" class="reg-img" id="es_bar"></a>
+    <a href="{% url 'gad-page'%}"><img src="{% static 'image/cart.png' %}" class="reg-img" id="es_cart"></a>
+    <a href="{% url 'borrowlist'%}"><img src="{% static 'image/bar.png' %}" class="reg-img" id="es_bar"></a>
     <h4>BOOKTY.com</h4>
     <input type="search" id="es_search" placeholder="Search">
   </div>

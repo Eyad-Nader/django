@@ -53,10 +53,14 @@
     transform:  scale(1.2); 
     transition: transform 0.3s ease, color 0.3s ease; 
   }
-  #dado_cart:hover{
-    transform:  scale(1.2); 
+
+
+  #dado_logout:hover{
+    transform:  scale(1.5); 
     transition: transform 0.3s ease, color 0.3s ease; 
+    z-index: 500;
   }
+
   
   #dado_home {
     margin-top: 5px;

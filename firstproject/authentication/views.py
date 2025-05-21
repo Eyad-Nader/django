@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Uuser
+from django.core.mail import send_mail
+import random
+from .models import PasswordResetOTP
+from django.contrib.auth.hashers import make_password
 
 def show_starting(request):
     return render(request,'authentication/starting.html')
@@ -100,6 +104,64 @@ def show_signup(request):
         print("not post")
     return render(request, 'authentication/try.html')
 
-
 def show_reset(request):
-    return render(request,'authentication/reset.html')
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        otp = request.POST.get('otp')
+
+        if otp:
+            try:
+                user = Uuser.objects.get(email=email)
+                otp_entry = PasswordResetOTP.objects.filter(user=user).latest('created_at')
+                if otp_entry.otp == otp and not otp_entry.is_expired():
+                    request.session['reset_user_id'] = user.id
+                    return redirect('reset_password')
+                else:
+                    return render(request, 'authentication/reset.html', {
+                        'error': 'Invalid or expired OTP',
+                        'show_otp': True,
+                        'email': email
+                    })
+            except Exception as e:
+                print('Error verifying OTP:', e)
+                return render(request, 'authentication/reset.html', {
+                    'error': 'Something went wrong. Try again.',
+                    'show_otp': True,
+                    'email': email
+                })
+
+        try:
+            user = Uuser.objects.get(email=email)
+            otp_code = str(random.randint(100000, 999999))
+            PasswordResetOTP.objects.create(user=user, otp=otp_code)
+            send_mail(
+                'Your BOOKTY OTP Code',
+                f'Your OTP code is: {otp_code}',
+                'noreply@bookty.com',
+                [email],
+            )
+            return render(request, 'authentication/reset.html', {
+                'show_otp': True,
+                'email': email
+            })
+        except Uuser.DoesNotExist:
+            return render(request, 'authentication/reset.html', {
+                'error': 'No user with this email exists.'
+            })
+
+    return render(request, 'authentication/reset.html')
+
+def reset_password(request):
+    user_id = request.session.get('reset_user_id')
+    if not user_id:
+        return redirect('reset')
+
+    if request.method == 'POST':
+        new_password = request.POST.get('password')
+        user = Uuser.objects.get(id=user_id)
+        user.password = new_password  # store plain text password
+        user.save()
+        del request.session['reset_user_id']
+        return redirect('login')
+
+    return render(request, 'authentication/reset_password.html')
