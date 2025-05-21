@@ -83,3 +83,65 @@ def borrow_book(request, book_id):
 
 def show_bookslist(request):
     return render(request,'books/borrowpage.html')
+
+
+def books_page(request):
+
+    user_email = request.session.get('user_email')
+    
+    # استعلام كل الكتب لعرضها دائمًا
+    books = Book.objects.all()
+    
+    borrowed_books = None
+    username = None
+
+    if user_email:
+        try:
+            user = Uuser.objects.get(email=user_email)
+            borrowed_books = user.borrowed_books.all()
+            username = user.username
+        except Uuser.DoesNotExist:
+            return HttpResponseForbidden("User not found")
+
+    return render(request, 'books/Gad2.html', {
+        'books': books,
+        'borrowed_books': borrowed_books,
+        'username': username
+    })
+@require_POST
+def borrow_book2(request):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return HttpResponseForbidden("User not logged in")
+
+    try:
+        user = Uuser.objects.get(email=user_email)
+    except Uuser.DoesNotExist:
+        return HttpResponseForbidden("User not found")
+
+    book_id = request.POST.get('selected_book')
+    if not book_id:
+        return HttpResponseForbidden("No book selected")
+
+    book = get_object_or_404(Book, id=book_id)
+
+    if not user.reserved_books.filter(id=book.id).exists():
+        user.reserved_books.add(book)
+        book.save()
+
+    return redirect('borrowlist')
+
+def show_bookslist(request):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return HttpResponseForbidden("User not logged in")
+
+    try:
+        user = Uuser.objects.get(email=user_email)
+        reserved_books = user.reserved_books.all()
+    except Uuser.DoesNotExist:
+        return HttpResponseForbidden("User not found")
+
+    return render(request, 'books/borrowpage.html', {
+        'reserved_books': reserved_books
+    })

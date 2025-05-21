@@ -12,6 +12,7 @@ class Uuser(models.Model):
 
     # ✅ Many-to-Many relationship
     borrowed_books = models.ManyToManyField(Book, related_name='Borrowed', blank=True)
+    reserved_books = models.ManyToManyField(Book, related_name='Reserved', blank=True)
 
     def __str__(self):
         return self.username
