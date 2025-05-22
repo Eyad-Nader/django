@@ -37,9 +37,33 @@ def show_add(request):
     return render(request, 'mainadmin/admin_add.html')
 
 
-def show_edit(request):
-    return render(request,'mainadmin/editbook.html')
+def show_edit(request, bookid):
+    book = get_object_or_404(Book, id=bookid)
 
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        author = request.POST.get('author')
+        description = request.POST.get('description')
+        category = request.POST.get('category')
+
+       
+
+        if 'cover' in request.FILES:
+            cover_image = request.FILES['cover']
+            book.photos = cover_image  # assuming "photos" is your ImageField
+
+
+        book.title = title
+        book.author = author
+        book.description = description
+        book.category = category
+        book.avaliable = True
+
+        book.save()
+
+        return redirect('mainadmin')  # or redirect to list page or book detail
+
+    return render(request, 'mainadmin/editbook.html', {'book': book})
 
 
 def delete_book(request, book_id):

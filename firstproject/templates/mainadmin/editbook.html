@@ -20,32 +20,37 @@
     <div class="container">
         <div class="es_box1">
             <h2>Edit Book</h2>
-            <form method="post" action="{% url 'edit' %}">
+            <form method="post" action="{% url 'edit' book.id %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="title">Book Title</label>
-                    <input type="text" id="title" name="title" value="Sherlock Holmes vs. Arsène Lupin" required>
+                    <input type="text" id="title" name="title" value="{{book.title}}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="author">Author</label>
-                    <input type="text" id="author" name="author" value="Maurice Leblanc" required>
+                    <input type="text" id="author" name="author" value="{{book.author}}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="category">Category</label>
-                    <input type="text" id="category" name="category" value="Thriller">
+                    <input type="text" id="category" name="category" value="{{book.category}}">
                 </div>
 
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea id="description" name="description"
-                        rows="4">The legendary detective Sherlock Holmes faces off against the cunning thief Arsène Lupin. Lupin challenges Holmes by committing high-profile thefts and leaving behind cryptic clues. Holmes, with his sharp intellect, attempts to capture the elusive thief. Their battle of wits leads to a thrilling game of cat and mouse. The novel is a classic clash between two brilliant minds</textarea>
+                        rows="4">{{book.description}}</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="cover">Cover Image URL</label>
-                    <input type="url" id="cover" name="cover" value="C:\Users\user\Desktop\testing\thr5.jpg">
+                    <input type="file" name="cover"><br>
+                    
+                     {% if book.photos %}
+                         <img src="{{ book.photos.url }}" width="100" height="150"><br>
+                    {% endif %}
+                   
                 </div>
 
                 <div class="form-group">
